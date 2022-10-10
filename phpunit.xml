@@ -23,17 +23,6 @@
         <extension class="Cake\TestSuite\Fixture\PHPUnitExtension"/>
     </extensions>
 
-    <!-- Ignore vendor tests in code coverage reports -->
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-            <directory suffix=".php">plugins/*/src/</directory>
-            <exclude>
-                <file>src/Console/Installer.php</file>
-            </exclude>
-        </whitelist>
-    </filter>
-    
     <coverage>
         <report>
             <clover outputFile="tests-results/clover.xml"/>
@@ -42,6 +31,14 @@
             <text outputFile="tests-results/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
             <xml outputDirectory="tests-results/xml-coverage"/>
         </report>
+        <include>
+            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">plugins/*/src/</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">vendor/</directory>
+            <file>src/Console/Installer.php</file>
+        </exclude>
     </coverage>
     
     <logging>
