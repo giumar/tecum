@@ -34,6 +34,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style type="text/css">
+        div.container { max-width: 100%; }
+    </style>
 </head>
 <body>
     <nav class="top-nav">
