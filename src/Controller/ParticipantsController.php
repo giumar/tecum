@@ -54,7 +54,7 @@ class ParticipantsController extends AppController {
         if ($this->request->is('post')) {
             $participant = $this->Participants->patchEntity($participant, $this->request->getData());
             if ($this->Participants->save($participant)) {
-                $this->Flash->success(__('The participant has been saved.'));
+                $this->Flash->success(__('Il partecipante è stato aggiunto.'));
 
                 //recupero i dati dell'evento
                 $this->loadModel('Events');
@@ -83,7 +83,7 @@ class ParticipantsController extends AppController {
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The participant could not be saved. Please, try again.'));
+            $this->Flash->error(__('Il partecipante non può essere aggiunto. Riprova più tardi.'));
         }
         $events = $this->Participants->Events->find('list', ['limit' => 200])->all();
         $this->set(compact('participant', 'events', 'event_id'));
@@ -103,11 +103,11 @@ class ParticipantsController extends AppController {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $participant = $this->Participants->patchEntity($participant, $this->request->getData());
             if ($this->Participants->save($participant)) {
-                $this->Flash->success(__('The participant has been saved.'));
+                $this->Flash->success(__('Il partecipante è stato aggiornato.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The participant could not be saved. Please, try again.'));
+            $this->Flash->error(__('Il partecipante non può essere aggiornato. Riprova più tardi.'));
         }
         $events = $this->Participants->Events->find('list', ['limit' => 200])->all();
         $this->set(compact('participant', 'events'));
@@ -124,9 +124,9 @@ class ParticipantsController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $participant = $this->Participants->get($id);
         if ($this->Participants->delete($participant)) {
-            $this->Flash->success(__('The participant has been deleted.'));
+            $this->Flash->success(__('Il partecipante è stato cancellato.'));
         } else {
-            $this->Flash->error(__('The participant could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Il partecipante non può essere cancellato. Riprova più tardi.'));
         }
 
         return $this->redirect(['action' => 'index']);
