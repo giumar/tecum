@@ -25,20 +25,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->fetch('title') ?>
         </title>
         <?= $this->Html->meta('icon') ?>
-
-        <?php /*
-          <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) */ ?>
-
+        
         <?= $this->Html->css(['bootstrap.min']) ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
-        <style type="text/css">
-            div.container {
-                max-width: 100%;
-            }
-        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-light">
