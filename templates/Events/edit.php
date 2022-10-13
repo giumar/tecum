@@ -8,30 +8,30 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Azioni') ?></h4>
             <?=
             $this->Form->postLink(
-                    __('Delete'),
+                    __('Cancella evento'),
                     ['action' => 'delete', $event->id],
-                    ['confirm' => __('Are you sure you want to delete # {0}?', $event->id), 'class' => 'side-nav-item']
+                    ['confirm' => __('Sei sicuro di vole cancellare # {0}?', $event->id), 'class' => 'side-nav-item']
             )
             ?>
-            <?= $this->Html->link(__('List Events'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Lista degli eventi'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="events form content">
                 <?= $this->Form->create($event) ?>
             <fieldset>
-                <legend><?= __('Edit Event') ?></legend>
+                <legend><?= __('Modifica evento') ?></legend>
                 <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('user_id', ['options' => $users]);
-                echo $this->Form->control('start_at');
-                echo $this->Form->control('end_at');
+                echo $this->Form->control('name', ['label' => 'Nome']);
+                echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utente']);
+                echo $this->Form->control('start_at', ['label' => 'Data di inizio']);
+                echo $this->Form->control('end_at', ['label' => 'Data di fine']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Salva modifiche')) ?>
             <?= $this->Form->end() ?>
         </div>
         <div class="events participants form content">

@@ -55,11 +55,11 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('L\'utente è stato aggiunto.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('L\'utente non può essere aggiunto. Riprova più tardi.'));
         }
         $this->set(compact('user'));
     }
@@ -78,11 +78,11 @@ class UsersController extends AppController {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('L\'utente è stato aggiornato.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('L\'utente non può essere aggiornato. Riprova più tardi.'));
         }
         $this->set(compact('user'));
     }
@@ -98,9 +98,9 @@ class UsersController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('L\'utente è stato cancellato.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('L\'utente non può essere cancellato. Riprova più tardi.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -115,7 +115,7 @@ class UsersController extends AppController {
             return $this->redirect($target);
         }
         if ($this->request->is('post')) {
-            $this->Flash->error('Invalid username or password');
+            $this->Flash->error('Username o password non validi.');
         }
     }
 

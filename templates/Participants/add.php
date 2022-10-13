@@ -8,8 +8,8 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Participants'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading"><?= __('Azioni') ?></h4>
+            <?= $this->Html->link(__('Mostra partecipanti'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -21,17 +21,17 @@
             }
             ?>
             <fieldset>
-                <legend><?= __('Add Participant') ?></legend>
+                <legend><?= __('Aggiungi partecipante') ?></legend>
                 <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('surname');
+                echo $this->Form->control('name', ['label' => 'Nome']);
+                echo $this->Form->control('surname', ['label' => 'Cognome']);
                 if (!isset($event_id)) {
-                    echo $this->Form->control('event_id', ['options' => $events]);
+                    echo $this->Form->control('event_id', ['options' => $events, 'label' => 'Evento']);
                 }
-                echo $this->Form->control('email');
+                echo $this->Form->control('email', ['label' => 'Email']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Invia modifiche')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

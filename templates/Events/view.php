@@ -7,11 +7,11 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Event'), ['action' => 'edit', $event->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Event'), ['action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $event->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Events'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Event'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading"><?= __('Azioni') ?></h4>
+            <?= $this->Html->link(__('Modifica evento'), ['action' => 'edit', $event->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Cancella evento'), ['action' => 'delete', $event->id], ['confirm' => __('Sei sicuro di voler cancellare # {0}?', $event->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Mostra eventi'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Aggiungi evento'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -20,11 +20,11 @@
             <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'button']) ?>
             <table>
                 <tr>
-                    <th><?= __('Name') ?></th>
+                    <th><?= __('Nome') ?></th>
                     <td><?= h($event->name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('User') ?></th>
+                    <th><?= __('Utente') ?></th>
                     <td><?= $event->has('user') ? $this->Html->link($event->user->id, ['controller' => 'Users', 'action' => 'view', $event->user->id]) : '' ?></td>
                 </tr>
                 <tr>
@@ -32,19 +32,19 @@
                     <td><?= $this->Number->format($event->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Start At') ?></th>
+                    <th><?= __('Data inizio') ?></th>
                     <td><?= h($event->start_at) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('End At') ?></th>
+                    <th><?= __('data fine') ?></th>
                     <td><?= h($event->end_at) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
+                    <th><?= __('Data creazione') ?></th>
                     <td><?= h($event->created) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Modified') ?></th>
+                    <th><?= __('Data ultima modifica') ?></th>
                     <td><?= h($event->modified) ?></td>
                 </tr>
             </table>
