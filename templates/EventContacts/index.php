@@ -7,7 +7,7 @@
 <div class="eventContacts index content">
     <?= $this->Html->link(__('Aggiungi contatto per un evento'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Contatti degli eventi') ?></h3>
-    <div class="table-responsive">
+    <div class="">
         <table>
             <thead>
                 <tr>

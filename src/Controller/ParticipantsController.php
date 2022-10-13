@@ -14,6 +14,13 @@ use Cake\Mailer\Mailer;
  */
 class ParticipantsController extends AppController {
 
+    // in src/Controller/UsersController.php
+    public function beforeFilter(\Cake\Event\EventInterface $event) {
+        parent::beforeFilter($event);
+
+        $this->Authentication->allowUnauthenticated(['add']);
+    }
+    
     /**
      * Index method
      *

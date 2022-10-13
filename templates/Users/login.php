@@ -2,10 +2,16 @@
     <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Inserisci la tua email e la password') ?></legend>
-        <?= $this->Form->control('email') ?>
-        <?= $this->Form->control('password') ?>
+        <div class="mb-3">
+            <?= $this->Form->label('email', null, ['class' => 'form-label']) ?>
+            <?= $this->Form->input('email', ['class' => 'form-control']) ?>
+        </div>
+        <div class="mb-3">
+            <?= $this->Form->label('password', null, ['class' => 'form-label']) ?>
+            <?= $this->Form->input('password', ['type' => 'password', 'class' => 'form-control']) ?>
+        </div>
     </fieldset>
-    <?= $this->Form->button(__('Login')); ?>
+    <?= $this->Form->button(__('Login'), ['class' => 'btn btn-primary']); ?>
     <?= $this->Form->end() ?>
 </div>
 <?php
