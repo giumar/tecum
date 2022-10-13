@@ -88,7 +88,12 @@ class ParticipantsController extends AppController {
                         ->setSubject('Nuova partecipazione all\'evento: ' . $event->name)
                         ->deliver($messageBody);
 
-                return $this->redirect(['action' => 'index']);
+                if($this->request->getData('from_event')) {
+                    return $this->redirect(['controller' => 'events', 'action' => 'view', $event->id]);
+                } else {
+                    return $this->redirect(['action' => 'index']);
+                }
+                
             }
             $this->Flash->error(__('Il partecipante non può essere aggiunto. Riprova più tardi.'));
         }
