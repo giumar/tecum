@@ -20,6 +20,7 @@
             <?php
             if (isset($event_id)) {
                 echo $this->Form->hidden('event_id', ['default' => $event_id]);
+                echo $this->Form->hidden('from_event', ['default' => true]);
             }
             ?>
             <fieldset>
