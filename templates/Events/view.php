@@ -30,7 +30,6 @@
     <div class="col">
         <div class="events view content">
             <h3><?= h($event->name) ?></h3>
-            <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'btn btn-primary']) ?>
             <table class="table">
                 <tr>
                     <th><?= __('Nome') ?></th>
@@ -83,8 +82,9 @@
                     ?>
                 </tbody>
             </table>
-
+            <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'btn btn-primary']) ?>
         </div>
+        <?php if($this->request->getSession()->read("Auth.id")) : ?>
         <div class="event participants view content">
             <h3>Partecipanti</h3>
             <table class="table">
@@ -103,5 +103,6 @@
             </table>
 
         </div>
+        <?php endif; ?>
     </div>
 </div>
