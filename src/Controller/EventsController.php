@@ -19,7 +19,7 @@ class EventsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Users', 'EventContacts'],
         ];
         $events = $this->paginate($this->Events);
 
@@ -36,7 +36,7 @@ class EventsController extends AppController
     public function view($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Users', 'Participants'],
+            'contain' => ['Users', 'Participants', 'EventContacts'],
         ]);
 
         $this->set(compact('event'));
@@ -73,7 +73,7 @@ class EventsController extends AppController
     public function edit($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => [],
+            'contain' => ['EventContacts'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $event = $this->Events->patchEntity($event, $this->request->getData());

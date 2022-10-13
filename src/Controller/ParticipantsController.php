@@ -1,23 +1,25 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
+
 use Cake\Mailer\Mailer;
+
 /**
  * Participants Controller
  *
  * @property \App\Model\Table\ParticipantsTable $Participants
  * @method \App\Model\Entity\Participant[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ParticipantsController extends AppController
-{
+class ParticipantsController extends AppController {
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Events'],
         ];
@@ -33,8 +35,7 @@ class ParticipantsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $participant = $this->Participants->get($id, [
             'contain' => ['Events'],
         ]);
@@ -47,20 +48,38 @@ class ParticipantsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add($event_id = null)
-    {
+    public function add($event_id = null) {
+
         $participant = $this->Participants->newEmptyEntity();
         if ($this->request->is('post')) {
             $participant = $this->Participants->patchEntity($participant, $this->request->getData());
             if ($this->Participants->save($participant)) {
                 $this->Flash->success(__('The participant has been saved.'));
+
+                //recupero i dati dell'evento
+                $this->loadModel('Events');
+                $event = $this->Events->get($event_id, ['contain' => ['Participants' => [
+                            'sort' => ['Participants.created' => 'DESC']
+                ]]]);
+                //dd($event);
+                //Costruisco il contenuto del messaggio per le persone di contatatto
+                $messageBody = 'La persona ' .
+                        $participant->name . ' ' .
+                        $participant->surname . ' <' .
+                        $participant->email . '> si è registrata all\'evento.';
+                $messageBody .= "\r\n\r\n";
+                $messageBody .= "Elenco dei partecipanti\r\n\r\n";
+                foreach($event['participants'] as $participant) {
+                    $messageBody .= $participant->created . ' ' .$participant->name . ' ' . $participant->surname . ' <' . $participant->email .">\r\n";
+                }
                 
-                //Invio email
-                $mailer = new Mailer('unina');
-                $mailer->setFrom(['gmarzati@unina.it' => 'Prenotazione insegnamento'])
+
+                //Invio email al proprietario dell'evento
+                $mailer = new Mailer('default');
+                $mailer->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
                         ->setTo('info@giumar.net')
-                        ->setSubject('Nuova prenotazione: ' . $participant->name . ' ' . $participant->surname)
-                        ->deliver('Nuova Prenotazione');
+                        ->setSubject('Nuova partecipazione all\'evento: ' . $event->name)
+                        ->deliver($messageBody);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -77,8 +96,7 @@ class ParticipantsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $participant = $this->Participants->get($id, [
             'contain' => [],
         ]);
@@ -102,8 +120,7 @@ class ParticipantsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $participant = $this->Participants->get($id);
         if ($this->Participants->delete($participant)) {
@@ -114,4 +131,5 @@ class ParticipantsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }

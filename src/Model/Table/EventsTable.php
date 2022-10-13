@@ -56,6 +56,11 @@ class EventsTable extends Table
             'foreignKey' => 'event_id',
             'joinType' => 'INNER',
         ]);
+        
+        $this->hasMany('EventContacts', [
+            'foreignKey' => 'event_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**

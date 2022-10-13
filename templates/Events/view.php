@@ -17,6 +17,7 @@
     <div class="column-responsive column-80">
         <div class="events view content">
             <h3><?= h($event->name) ?></h3>
+            <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'button']) ?>
             <table>
                 <tr>
                     <th><?= __('Name') ?></th>
@@ -47,7 +48,31 @@
                     <td><?= h($event->modified) ?></td>
                 </tr>
             </table>
-            <?= $this->Html->link(__('Partecipa'), ['controller'=>'Participants', 'action' => 'add', $event->id], ['class' => 'button']) ?>
+            
+            <h3>Contatti</h3>
+            <table>
+                <tbody>
+                    <?php
+                    foreach ($event['event_contacts'] as $contact) {
+                        echo "<tr><td>" . $contact->name . "</td><td>" . $contact->surname . "</td><td>" . $contact->email . "</td><td>" . $contact->role ."</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+       
+        </div>
+        <div class="event participants view content">
+            <h3>Partecipanti</h3>
+            <table>
+                <tbody>
+                    <?php
+                    foreach ($event['participants'] as $participant) {
+                        echo "<tr><td>" . $participant->name . "</td><td>" . $participant->surname . "</td><td>" . $participant->created . "</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
