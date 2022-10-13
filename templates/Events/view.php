@@ -5,20 +5,33 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
+    <?php
+    if($this->request->getSession()->read('Auth.id')) { ?>
+    <div class="col-lg-2">
+        <aside class="column">
             <h4 class="heading"><?= __('Azioni') ?></h4>
-            <?= $this->Html->link(__('Modifica evento'), ['action' => 'edit', $event->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Cancella evento'), ['action' => 'delete', $event->id], ['confirm' => __('Sei sicuro di voler cancellare # {0}?', $event->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('Mostra eventi'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('Aggiungi evento'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <?= $this->Html->link(__('Modifica evento'), ['action' => 'edit', $event->id], ['class' => '', 'escape' => false]) ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->Form->postLink(__('Cancella evento'), ['action' => 'delete', $event->id], ['confirm' => __('Sei sicuro di voler cancellare # {0}?', $event->id), 'class' => 'btn btn-danger']) ?>
+                </li>
+                <li class="list-group-item">        
+                    <?= $this->Html->link(__('Mostra eventi'), ['action' => 'index'], ['class' => '', 'escape' => false]) ?>
+                </li>
+                <li class="list-group-item">        
+                    <?= $this->Html->link(__('<i class="bi bi-plus-square"></i> Aggiungi evento'), ['action' => 'add'], ['class' => '', 'escape' => false]) ?>
+                </li>
+            </ul>
+        </aside>
+    </div>
+    <?php } ?>
+    <div class="col">
         <div class="events view content">
             <h3><?= h($event->name) ?></h3>
-            <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'button']) ?>
-            <table>
+            <?= $this->Html->link(__('Partecipa'), ['controller' => 'Participants', 'action' => 'add', $event->id], ['class' => 'btn btn-primary']) ?>
+            <table class="table">
                 <tr>
                     <th><?= __('Nome') ?></th>
                     <td><?= h($event->name) ?></td>
@@ -48,22 +61,33 @@
                     <td><?= h($event->modified) ?></td>
                 </tr>
             </table>
-            
+
             <h3>Contatti</h3>
-            <table>
+            <table class="table">
+                <thead>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Ruolo</th>
+                </thead>
                 <tbody>
                     <?php
                     foreach ($event['event_contacts'] as $contact) {
-                        echo "<tr><td>" . $contact->name . "</td><td>" . $contact->surname . "</td><td>" . $contact->email . "</td><td>" . $contact->role ."</td></tr>";
+                        echo "<tr><td>" . $contact->name . "</td><td>" . $contact->surname . "</td><td>" . $contact->email . "</td><td>" . $contact->role . "</td></tr>";
                     }
                     ?>
                 </tbody>
             </table>
-       
+
         </div>
         <div class="event participants view content">
             <h3>Partecipanti</h3>
-            <table>
+            <table class="table">
+                <thead>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Data richiesta</th>
+                </thead>
                 <tbody>
                     <?php
                     foreach ($event['participants'] as $participant) {

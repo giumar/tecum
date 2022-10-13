@@ -23,7 +23,14 @@
  * THE SOFTWARE.
  */
 ?>
-<table >
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data di inizio</th>
+            <th>Data di fine</th>
+        </tr>
+    </thead>
     <tbody>
         <?php
         foreach ($events as $event) {

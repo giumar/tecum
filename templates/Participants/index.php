@@ -7,8 +7,8 @@
 <div class="participants index content">
     <?= $this->Html->link(__('Aggiungi partecipante'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Partecipanti') ?></h3>
-    <div class="table-responsive">
-        <table>
+    <div class="">
+        <table class="table">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
