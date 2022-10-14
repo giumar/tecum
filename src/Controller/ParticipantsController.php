@@ -20,7 +20,7 @@ class ParticipantsController extends AppController {
 
         $this->Authentication->allowUnauthenticated(['add']);
     }
-    
+
     /**
      * Index method
      *
@@ -65,12 +65,11 @@ class ParticipantsController extends AppController {
 
                 //recupero i dati dell'evento
                 $this->loadModel('Events');
-                $event = $this->Events->get($event_id, ['contain' =>  [
-                    'Participants' => ['sort' => ['Participants.created' => 'DESC']],
-                    'EventContacts',
-                    ]]);
-                
-                
+                $event = $this->Events->get($event_id, ['contain' => [
+                        'Participants' => ['sort' => ['Participants.created' => 'DESC']],
+                        'EventContacts',
+                ]]);
+
                 //Costruisco il contenuto del messaggio per le persone di contatatto
                 $messageBody = 'La persona ' .
                         $participant->name . ' ' .
@@ -78,23 +77,23 @@ class ParticipantsController extends AppController {
                         $participant->email . '> si è registrata all\'evento.';
                 $messageBody .= "\r\n\r\n";
                 $messageBody .= "Elenco dei partecipanti\r\n\r\n";
-                foreach($event['participants'] as $participant) {
-                    $messageBody .= $participant->created . ' ' .$participant->name . ' ' . $participant->surname . ' <' . $participant->email .">\r\n";
+                foreach ($event['participants'] as $participant) {
+                    $messageBody .= $participant->created . ' ' . $participant->name . ' ' . $participant->surname . ' <' . $participant->email . ">\r\n";
                 }
-                
+
 
                 //Invio email al proprietario dell'evento
                 $mailer = new Mailer('default');
                 $mailer->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
                         ->setTo('info@giumar.net')
                         ->setSubject('Nuova partecipazione all\'evento: ' . $event->name);
-                
-                foreach($event['event_contacts'] as $event_contact) {
+
+                foreach ($event['event_contacts'] as $event_contact) {
                     $mailer->addTo($event_contact['email']);
                 }
-                
+
                 $mailer->deliver($messageBody);
-                
+
                 $mailerPartecipante = new Mailer('default');
                 $mailerPartecipante->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
                         ->setTo($participant->email)
@@ -102,19 +101,27 @@ class ParticipantsController extends AppController {
                         ->setSubject('Nuova partecipazione all evento: ' . $event->name);
 
                 $messageBodyPartecipante = "La sua richiesta di partecipazione all\'evento è stata accettata.\r\n";
+                $messageBodyPartecipante .= "Opzioni scelte: " . h($participant->options);
+                $messageBodyPartecipante .= "\r\n\r\n";
+                $messageBodyPartecipante .= "Note: " . h($participant->notes);
                 $mailerPartecipante->deliver($messageBodyPartecipante);
-                
-                if($this->request->getData('from_event')) {
+
+                if ($this->request->getData('from_event')) {
                     return $this->redirect(['controller' => 'events', 'action' => 'view', $event->id]);
                 } else {
                     return $this->redirect(['action' => 'index']);
                 }
-                
             }
             $this->Flash->error(__('Il partecipante non può essere aggiunto. Riprova più tardi.'));
         }
+
+        $event = null;
+        if (!is_null($event_id)) {
+            $event = $this->Participants->Events->get($event_id);
+        }
+
         $events = $this->Participants->Events->find('list', ['limit' => 200])->all();
-        $this->set(compact('participant', 'events', 'event_id'));
+        $this->set(compact('participant', 'events', 'event_id', 'event'));
     }
 
     /**

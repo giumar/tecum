@@ -37,5 +37,7 @@ class Participant extends Entity
         'created' => true,
         'modified' => true,
         'event' => true,
+        'options' => true,
+        'notes' => true,
     ];
 }
