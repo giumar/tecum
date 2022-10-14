@@ -65,10 +65,12 @@ class ParticipantsController extends AppController {
 
                 //recupero i dati dell'evento
                 $this->loadModel('Events');
-                $event = $this->Events->get($event_id, ['contain' => ['Participants' => [
-                            'sort' => ['Participants.created' => 'DESC']
-                ]]]);
-                //dd($event);
+                $event = $this->Events->get($event_id, ['contain' =>  [
+                    'Participants' => ['sort' => ['Participants.created' => 'DESC']],
+                    'EventContacts',
+                    ]]);
+                
+                
                 //Costruisco il contenuto del messaggio per le persone di contatatto
                 $messageBody = 'La persona ' .
                         $participant->name . ' ' .
@@ -85,8 +87,13 @@ class ParticipantsController extends AppController {
                 $mailer = new Mailer('default');
                 $mailer->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
                         ->setTo('info@giumar.net')
-                        ->setSubject('Nuova partecipazione all\'evento: ' . $event->name)
-                        ->deliver($messageBody);
+                        ->setSubject('Nuova partecipazione all\'evento: ' . $event->name);
+                
+                foreach($event['event_contacts'] as $event_contact) {
+                    $mailer->addTo($event_contact['email']);
+                }
+                
+                $mailer->deliver($messageBody);
 
                 if($this->request->getData('from_event')) {
                     return $this->redirect(['controller' => 'events', 'action' => 'view', $event->id]);
