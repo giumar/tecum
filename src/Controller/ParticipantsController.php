@@ -56,7 +56,6 @@ class ParticipantsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add($event_id = null) {
-
         $participant = $this->Participants->newEmptyEntity();
         if ($this->request->is('post')) {
             $participant = $this->Participants->patchEntity($participant, $this->request->getData());
@@ -70,41 +69,8 @@ class ParticipantsController extends AppController {
                         'EventContacts',
                 ]]);
 
-                //Costruisco il contenuto del messaggio per le persone di contatatto
-                $messageBody = 'La persona ' .
-                        $participant->name . ' ' .
-                        $participant->surname . ' <' .
-                        $participant->email . '> si è registrata all\'evento.';
-                $messageBody .= "\r\n\r\n";
-                $messageBody .= "Elenco dei partecipanti\r\n\r\n";
-                foreach ($event['participants'] as $participant) {
-                    $messageBody .= $participant->created . ' ' . $participant->name . ' ' . $participant->surname . ' <' . $participant->email . ">\r\n";
-                }
-
-
-                //Invio email al proprietario dell'evento
-                $mailer = new Mailer('default');
-                $mailer->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
-                        ->setTo('info@giumar.net')
-                        ->setSubject('Nuova partecipazione all\'evento: ' . $event->name);
-
-                foreach ($event['event_contacts'] as $event_contact) {
-                    $mailer->addTo($event_contact['email']);
-                }
-
-                $mailer->deliver($messageBody);
-
-                $mailerPartecipante = new Mailer('default');
-                $mailerPartecipante->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
-                        ->setTo($participant->email)
-                        ->setBcc('gmarzati@unina.it')
-                        ->setSubject('Nuova partecipazione all evento: ' . $event->name);
-
-                $messageBodyPartecipante = "La sua richiesta di partecipazione all\'evento è stata accettata.\r\n";
-                $messageBodyPartecipante .= "Opzioni scelte: " . h($participant->options);
-                $messageBodyPartecipante .= "\r\n\r\n";
-                $messageBodyPartecipante .= "Note: " . h($participant->notes);
-                $mailerPartecipante->deliver($messageBodyPartecipante);
+                $this->sendMailToContacts($participant, $event);
+                //$this->sendMailToparticipant($participant, $event);
 
                 if ($this->request->getData('from_event')) {
                     return $this->redirect(['controller' => 'events', 'action' => 'view', $event->id]);
@@ -165,6 +131,54 @@ class ParticipantsController extends AppController {
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    private function sendMailToContacts($participant, $event) {
+        //Costruisco il contenuto del messaggio per le persone di contatto
+        /*
+        $messageBody = 'La persona ' .
+                $participant->name . ' ' .
+                $participant->surname . ' <' .
+                $participant->email . '> si è registrata all\'evento.';
+        $messageBody .= "\r\n\r\n";
+        $messageBody .= "Elenco dei partecipanti\r\n\r\n";
+        foreach ($event['participants'] as $participant) {
+            $messageBody .= $participant->created . ' ' . $participant->name . ' ' . $participant->surname . ' <' . $participant->email . ">\r\n";
+        }
+
+        //dd($messageBody);
+         * 
+         */
+
+        //Invio email al proprietario dell'evento
+        $mailer = new Mailer('default');
+        $mailer->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
+                ->setTo('info@giumar.net')
+                ->setSubject('Nuova partecipazione all\'evento: ' . $event->name)
+                ->setEmailFormat('html')
+                ->viewBuilder()
+                ->setTemplate('partecipazione')
+                ->setLayout('partecipazione');
+
+        foreach ($event['event_contacts'] as $event_contact) {
+            //$mailer->addTo($event_contact['email']);
+        }
+        $mailer->setViewVars(['participant' => $participant, 'event' => $event]);
+        $mailer->deliver();
+    }
+
+    private function sendMailToParticipant($participant, $event) {
+        $mailerPartecipante = new Mailer('default');
+        $mailerPartecipante->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
+                ->setTo($participant->email)
+                ->setBcc('gmarzati@unina.it')
+                ->setSubject('Nuova partecipazione all evento: ' . $event->name);
+
+        $messageBodyPartecipante = "La sua richiesta di partecipazione all\'evento è stata accettata.\r\n";
+        $messageBodyPartecipante .= "Opzioni scelte: " . h($participant->options);
+        $messageBodyPartecipante .= "\r\n\r\n";
+        $messageBodyPartecipante .= "Note: " . h($participant->notes);
+        $mailerPartecipante->deliver($messageBodyPartecipante);
     }
 
 }
