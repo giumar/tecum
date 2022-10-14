@@ -31,7 +31,7 @@
                 <?php foreach ($events as $event): ?>
                 <tr>
                     <td><?= $this->Number->format($event->id) ?></td>
-                    <td><?= h($event->name) ?></td>
+                    <td><?= $this->Html->link(h($event->name), ['controller' => 'Events', 'action' => 'view', $event->id]) ?></td>
                     <?php if($this->request->getSession()->read('Auth.id')) : ?>
                     <td><?= $event->has('user') ? $this->Html->link($event->user->id, ['controller' => 'Users', 'action' => 'view', $event->user->id]) : '' ?></td>
                     <?php endif; ?>
