@@ -37,5 +37,6 @@ class Event extends Entity
         'created' => true,
         'modified' => true,
         'user' => true,
+        'description' => true,
     ];
 }

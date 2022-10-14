@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Event $event
  */
+use Cake\Utility\Text;
 ?>
 <div class="row">
     <?php
@@ -64,6 +65,10 @@
                     <td><?= h($event->modified) ?></td>
                 </tr>
                 <?php endif; ?>
+                <tr>
+                    <th><?= __('Descrizione') ?></th>
+                    <td height="300"><textarea class="h-100 w-100" readonly="readonly"><?= h($event->description) ?></textarea></td>
+                </tr>
             </table>
 
             <h4>Contatti</h4>

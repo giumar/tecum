@@ -48,6 +48,12 @@
                         <?= $this->Form->dateTime('end_at', ['class' => 'form-control']); ?>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <?= $this->Form->label('description', 'Descrizione', ['class' => 'col-sm-2 col-form-label']); ?>
+                    <div class="col-sm-10">
+                        <?= $this->Form->textarea('description', ['class' => 'form-control']); ?>
+                    </div>
+                </div>
             </fieldset>
             <?= $this->Form->button(__('Salva modifiche'), ['class' => 'btn btn-primary']) ?>
             <?= $this->Form->end() ?>
