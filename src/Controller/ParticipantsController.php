@@ -94,7 +94,16 @@ class ParticipantsController extends AppController {
                 }
                 
                 $mailer->deliver($messageBody);
+                
+                $mailerPartecipante = new Mailer('default');
+                $mailerPartecipante->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
+                        ->setTo($participant->email)
+                        ->setBcc('gmarzati@unina.it')
+                        ->setSubject('Nuova partecipazione all evento: ' . $event->name);
 
+                $messageBodyPartecipante = "La sua richiesta di partecipazione all\'evento è stata accettata.\r\n";
+                $mailerPartecipante->deliver($messageBodyPartecipante);
+                
                 if($this->request->getData('from_event')) {
                     return $this->redirect(['controller' => 'events', 'action' => 'view', $event->id]);
                 } else {
