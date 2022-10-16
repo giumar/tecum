@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,10 +9,12 @@ namespace App\Controller;
  * @property \App\Model\Table\UsersTable $Users
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class UsersController extends AppController {
-
+class UsersController extends AppController
+{
     // in src/Controller/UsersController.php
-    public function beforeFilter(\Cake\Event\EventInterface $event) {
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login','add', 'index']);
@@ -24,7 +25,8 @@ class UsersController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index() {
+    public function index()
+    {
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -37,7 +39,8 @@ class UsersController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
+    public function view($id = null)
+    {
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -50,7 +53,8 @@ class UsersController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add() {
+    public function add()
+    {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -71,7 +75,8 @@ class UsersController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -94,7 +99,8 @@ class UsersController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($id = null)
+    {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -107,11 +113,14 @@ class UsersController extends AppController {
     }
 
     // in src/Controller/UsersController.php
-    public function login() {
+
+    public function login()
+    {
         $result = $this->Authentication->getResult();
         // If the user is logged in send them away.
         if ($result->isValid()) {
             $target = $this->Authentication->getLoginRedirect() ?? '/home';
+
             return $this->redirect($target);
         }
         if ($this->request->is('post')) {
@@ -120,9 +129,10 @@ class UsersController extends AppController {
     }
 
     // in src/Controller/UsersController.php
-    public function logout() {
+    public function logout()
+    {
         $this->Authentication->logout();
+
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
-
 }

@@ -17,9 +17,9 @@ class HomeController extends AppController
      */
     public function index()
     {
-        $this->loadModel("Events");
+        $this->loadModel('Events');
         $events = $this->paginate($this->Events);
-        
+
         $this->set(compact('events'));
     }
 }

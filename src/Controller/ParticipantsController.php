@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -12,10 +11,12 @@ use Cake\Mailer\Mailer;
  * @property \App\Model\Table\ParticipantsTable $Participants
  * @method \App\Model\Entity\Participant[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ParticipantsController extends AppController {
-
+class ParticipantsController extends AppController
+{
     // in src/Controller/UsersController.php
-    public function beforeFilter(\Cake\Event\EventInterface $event) {
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['add']);
@@ -26,7 +27,8 @@ class ParticipantsController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index() {
+    public function index()
+    {
         $this->paginate = [
             'contain' => ['Events'],
         ];
@@ -42,7 +44,8 @@ class ParticipantsController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
+    public function view($id = null)
+    {
         $participant = $this->Participants->get($id, [
             'contain' => ['Events'],
         ]);
@@ -55,7 +58,8 @@ class ParticipantsController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add($event_id = null) {
+    public function add($event_id = null)
+    {
         $participant = $this->Participants->newEmptyEntity();
         if ($this->request->is('post')) {
             $participant = $this->Participants->patchEntity($participant, $this->request->getData());
@@ -97,7 +101,8 @@ class ParticipantsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
         $participant = $this->Participants->get($id, [
             'contain' => [],
         ]);
@@ -121,7 +126,8 @@ class ParticipantsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($id = null)
+    {
         $this->request->allowMethod(['post', 'delete']);
         $participant = $this->Participants->get($id);
         if ($this->Participants->delete($participant)) {
@@ -133,7 +139,8 @@ class ParticipantsController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 
-    private function sendMailToContacts($participant, $event) {
+    private function sendMailToContacts($participant, $event)
+    {
         //Costruisco il contenuto del messaggio per le persone di contatto
         /*
         $messageBody = 'La persona ' .
@@ -147,7 +154,7 @@ class ParticipantsController extends AppController {
         }
 
         //dd($messageBody);
-         * 
+         *
          */
 
         //Invio email al proprietario dell'evento
@@ -167,7 +174,8 @@ class ParticipantsController extends AppController {
         $mailer->deliver();
     }
 
-    private function sendMailToParticipant($participant, $event) {
+    private function sendMailToParticipant($participant, $event)
+    {
         $mailerPartecipante = new Mailer('default');
         $mailerPartecipante->setFrom(['gmarzati@unina.it' => 'Partecipazione Evento'])
                 ->setTo($participant->email)
@@ -175,10 +183,9 @@ class ParticipantsController extends AppController {
                 ->setSubject('Nuova partecipazione all evento: ' . $event->name);
 
         $messageBodyPartecipante = "La sua richiesta di partecipazione all\'evento è stata accettata.\r\n";
-        $messageBodyPartecipante .= "Opzioni scelte: " . h($participant->options);
+        $messageBodyPartecipante .= 'Opzioni scelte: ' . h($participant->options);
         $messageBodyPartecipante .= "\r\n\r\n";
-        $messageBodyPartecipante .= "Note: " . h($participant->notes);
+        $messageBodyPartecipante .= 'Note: ' . h($participant->notes);
         $mailerPartecipante->deliver($messageBodyPartecipante);
     }
-
 }
