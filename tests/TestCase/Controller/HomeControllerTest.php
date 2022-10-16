@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\HomeController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -22,7 +21,7 @@ class HomeControllerTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        //'app.Home',
+            //'app.Home',
     ];
 
     /**
@@ -31,8 +30,29 @@ class HomeControllerTest extends TestCase
      * @return void
      * @uses \App\Controller\HomeController::index()
      */
-    public function testIndex(): void
+    public function testIndexAsGuestUser(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/');
+        $this->assertResponseOk();
+    }
+
+    /**
+     * Test index method
+     *
+     * @return void
+     * @uses \App\Controller\HomeController::index()
+     */
+    public function testIndexAsRegisteredUser(): void
+    {
+        // Set session data
+        $this->session([
+            'Auth' => [
+                'id' => 1,
+                'username' => 'testing@localhost.local',
+            ],
+        ]);
+
+        $this->get('/');
+        $this->assertResponseOk();
     }
 }
