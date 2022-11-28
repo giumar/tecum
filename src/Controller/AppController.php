@@ -52,7 +52,11 @@ class AppController extends Controller
         $this->loadComponent('Authentication.Authentication');
     }
 
-    // in src/Controller/UsersController.php
+    /**
+     * 
+     * @param \Cake\Event\EventInterface $event
+     * @property \Authentication\Controller\Component\AuthenticationComponent 
+     */
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);

@@ -6,7 +6,8 @@ namespace App\Controller;
 /**
  * Home Controller
  *
- * @method \App\Model\Entity\Home[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \App\Model\Table\Event $Events L'oggettto tabella Events
+ * @method \App\Model\Entity\Event[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class HomeController extends AppController
 {
