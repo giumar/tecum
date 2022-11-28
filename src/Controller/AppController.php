@@ -51,9 +51,14 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
         $this->loadComponent('Authentication.Authentication');
     }
-    
-    // in src/Controller/UsersController.php
-    public function beforeFilter(\Cake\Event\EventInterface $event) {
+
+    /**
+     * 
+     * @param \Cake\Event\EventInterface $event
+     * @property \Authentication\Controller\Component\AuthenticationComponent 
+     */
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['index','view']);

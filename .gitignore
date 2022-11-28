@@ -54,3 +54,4 @@ yarn-error.log
 *.sqlite
 tests-results/
 config/Migrations/schema-dump-default.lock
+.phpdoc/
