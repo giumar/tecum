@@ -17,7 +17,7 @@
         "cakephp/bake": "^2.6",
         "cakephp/cakephp-codesniffer": "^5.0",
         "cakephp/debug_kit": "^4.5",
-        "dereuromark/cakephp-ide-helper": "1.18.4",
+        "dereuromark/cakephp-ide-helper": "1.18.6",
         "josegonzalez/dotenv": "^3.2",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "~8.5.0 || ^9.3"
