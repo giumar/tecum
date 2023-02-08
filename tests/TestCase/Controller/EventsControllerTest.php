@@ -33,7 +33,9 @@ class EventsControllerTest extends TestCase
      */
     public function testIndex(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        //$this->markTestIncomplete('Not implemented yet.');
+        $this->get('/events');
+        $this->assertResponseOk();
     }
 
     /**
@@ -44,7 +46,8 @@ class EventsControllerTest extends TestCase
      */
     public function testView(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/events/view/1');
+        $this->assertResponseOk();
     }
 
     /**
@@ -55,7 +58,8 @@ class EventsControllerTest extends TestCase
      */
     public function testAdd(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/events/add');
+        $this->assertRedirect();
     }
 
     /**
@@ -66,7 +70,8 @@ class EventsControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/events/edit/1');
+        $this->assertRedirect();
     }
 
     /**
@@ -77,6 +82,7 @@ class EventsControllerTest extends TestCase
      */
     public function testDelete(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/events/delete/1');
+        $this->assertRedirect();
     }
 }
