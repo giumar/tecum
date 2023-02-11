@@ -6,16 +6,6 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.4-alpha.1](https://github.com/giumar/tecum/compare/v0.0.3...v0.0.4-alpha.1) (2023-02-11)
 
-
----
-
-## [0.0.4-alpha.1](https://github.com/giumar/tecum/compare/v0.0.3...v0.0.4-alpha.1) (2023-02-11)
-
-
----
-
-## [0.0.4-alpha.1](https://github.com/giumar/tecum/compare/v0.0.3...v0.0.4-alpha.1) (2023-02-11)
-
 Test release
 ---
 
