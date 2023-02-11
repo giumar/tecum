@@ -20,8 +20,8 @@ class UsersFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'email' => 'Lorem ipsum dolor sit amet',
-                'password' => 'Lorem ipsum dolor sit amet',
+                'email' => 'admin_user@localhost.local',
+                'password' => 'admin_password',
                 'created' => '2022-10-11 11:53:12',
                 'modified' => '2022-10-11 11:53:12',
             ],

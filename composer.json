@@ -55,7 +55,9 @@
         "release": "conventional-changelog --commit",
         "release:patch": "conventional-changelog --patch --commit",
         "release:minor": "conventional-changelog --minor --commit",
-        "release:major": "conventional-changelog --major --commit"
+        "release:major": "conventional-changelog --major --commit",
+        "release:alpha": "conventional-changelog --alpha --no-change-without-commits",
+        "release:alpha-commit": "conventional-changelog --alpha --no-change-without-commits --commit"
     },
     "prefer-stable": true,
     "config": {
@@ -65,5 +67,5 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
-    "version": "0.0.3"
+    "version": "0.0.4-alpha.1"
 }
