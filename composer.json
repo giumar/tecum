@@ -1,7 +1,7 @@
 {
-    "name": "cakephp/app",
-    "description": "CakePHP skeleton app",
-    "homepage": "https://cakephp.org",
+    "name": "giumar/tecum",
+    "description": "TeCum, booking and more",
+    "homepage": "https://github.com/giumar/tecum",
     "type": "project",
     "license": "MIT",
     "require": {
