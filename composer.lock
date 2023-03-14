@@ -2429,16 +2429,16 @@
         },
         {
             "name": "cakephp/cakephp-codesniffer",
-            "version": "5.0.1",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp-codesniffer.git",
-                "reference": "6cbe404c69f83d5d6bbac3e978ac4e3747af26d9"
+                "reference": "0543c545815e63941337a49643fab694ae0bb8e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/6cbe404c69f83d5d6bbac3e978ac4e3747af26d9",
-                "reference": "6cbe404c69f83d5d6bbac3e978ac4e3747af26d9",
+                "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/0543c545815e63941337a49643fab694ae0bb8e0",
+                "reference": "0543c545815e63941337a49643fab694ae0bb8e0",
                 "shasum": ""
             },
             "require": {
@@ -2478,7 +2478,7 @@
                 "issues": "https://github.com/cakephp/cakephp-codesniffer/issues",
                 "source": "https://github.com/cakephp/cakephp-codesniffer"
             },
-            "time": "2022-11-08T08:20:46+00:00"
+            "time": "2023-03-05T20:34:52+00:00"
         },
         {
             "name": "cakephp/debug_kit",
@@ -5804,16 +5804,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -5849,14 +5849,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         },
         {
             "name": "symfony/finder",
