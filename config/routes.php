@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -20,7 +21,6 @@
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
@@ -45,7 +45,7 @@ return static function (RouteBuilder $routes) {
     $routes->setRouteClass(DashedRoute::class);
 
     $routes->scope('/', function (RouteBuilder $builder) {
-        
+
         $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/events', ['controller' => 'Events']);
 
@@ -53,6 +53,16 @@ return static function (RouteBuilder $routes) {
          * ...and connect the rest of 'Pages' controller's URLs.
          */
         $builder->connect('/pages/*', 'Pages::display');
+
+        $builder->prefix('User', function (RouteBuilder $routes) {
+            // All routes here will be prefixed with `/admin`, and
+            // have the `'prefix' => 'Admin'` route element added that
+            // will be required when generating URLs for these routes
+            
+            $routes->connect('/', ['controller' => 'Profile', 'action' => 'index']);
+            
+            $routes->fallbacks(DashedRoute::class);
+        });
 
         /*
          * Connect catchall routes for all controllers.
